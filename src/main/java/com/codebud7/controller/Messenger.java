@@ -2,6 +2,7 @@ package com.codebud7.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -10,16 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class Messenger
 {
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    String init()
-    {
-        return "Hello World!";
-    }
-
-    @RequestMapping("/webhook")
-    @ResponseBody
-    String parseMessage()
+    String info()
     {
         return "Hello World!";
     }

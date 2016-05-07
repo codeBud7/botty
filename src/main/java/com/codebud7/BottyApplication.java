@@ -1,5 +1,6 @@
 package com.codebud7;
 
+import com.codebud7.controller.Messenger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +10,6 @@ public class BottyApplication
 
     public static void main(final String[] args)
     {
-        SpringApplication.run(BottyApplication.class, args);
+        SpringApplication.run(Messenger.class, args);
     }
 }
