@@ -1,8 +1,16 @@
 package com.codebud7.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import com.codebud7.model.request.MessengerBot;
+import com.codebud7.model.response.MessengerBotRecipient;
+import com.codebud7.properties.MessengerProperties;
+import com.codebud7.service.SendMessage;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.HashMap;
+import java.util.Map;
+import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +26,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class Messenger
 {
-
+    private static final String NOT_AUTHORIZED = "NOT AUTHORIZED";
     private static final Logger LOGGER = LoggerFactory.getLogger(Messenger.class);
 
-    private static final String VERIFY_TOKEN = "foo";
-    private static final String NOT_AUTHORIZED = "NOT AUTHORIZED";
+    private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class);
 
+    @Autowired
+    private SendMessage sendMessage;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
@@ -40,7 +49,7 @@ public class Messenger
         @RequestParam(name = "hub.challenge") final String hubChallenge,
         @RequestParam(name = "hub.verify_token") final String hubToken)
     {
-        if (hubToken.equals(VERIFY_TOKEN))
+        if (hubToken.equals(this.messengerProperties.getVerifyToken()))
         {
             LOGGER.info("verify for mode {}", hubMode);
             return hubChallenge;
@@ -55,12 +64,25 @@ public class Messenger
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
     @ResponseBody
-    String answer(
-        final HttpServletRequest request,
-        @RequestBody final Object body)
+    @ResponseStatus(HttpStatus.OK)
+    void answer(@RequestBody final MessengerBot messengerBot)
     {
-        LOGGER.info(request.toString());
-        LOGGER.info(body.toString());
-        return "yo";
+        LOGGER.info(messengerBot.toString());
+
+        final Map<String, String> messageData = new HashMap<>();
+        messageData.put("text", "Yo!");
+
+        final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
+        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getRecipient());
+        messengerBotRecipient.setMessage(messageData);
+
+        try
+        {
+            this.sendMessage.execute(messengerBotRecipient);
+        }
+        catch (final UnirestException e)
+        {
+            LOGGER.error(e.toString());
+        }
     }
 }
