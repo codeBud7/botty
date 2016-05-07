@@ -33,4 +33,30 @@ public class MessengerBot
     {
         this.entry = entry;
     }
+
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getObject());
+        for (final MessengerBotEntry messengerBotEntry : getEntry())
+        {
+            stringBuilder.append(messengerBotEntry.getId());
+            stringBuilder.append(messengerBotEntry.getTime());
+            for (final MessengerBotEntryMessaging messengerBotEntryMessaging : messengerBotEntry.getMessaging())
+            {
+                stringBuilder.append(messengerBotEntryMessaging.getRecipient());
+                stringBuilder.append(messengerBotEntryMessaging.getSender());
+                stringBuilder.append(messengerBotEntryMessaging.getTimestamp());
+
+                final MessengerBotEntryMessagingMessage messengerBotEntryMessagingMessage = messengerBotEntryMessaging.getMessage();
+                stringBuilder.append(messengerBotEntryMessagingMessage.getMid());
+                stringBuilder.append(messengerBotEntryMessagingMessage.getSeq());
+                stringBuilder.append(messengerBotEntryMessagingMessage.getText());
+            }
+        }
+
+        return stringBuilder.toString();
+    }
 }
