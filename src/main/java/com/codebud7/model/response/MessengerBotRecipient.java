@@ -25,7 +25,7 @@ public class MessengerBotRecipient
 
     public String getMessage()
     {
-        return "'text':‘" + this.message.get("text") + "'";
+        return "'text':'" + this.message.get("text") + "'";
     }
 
 
