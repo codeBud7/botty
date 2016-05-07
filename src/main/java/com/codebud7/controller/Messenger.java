@@ -1,13 +1,12 @@
 package com.codebud7.controller;
 
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -33,23 +32,11 @@ public class Messenger
 
     @RequestMapping(value = "/verify", method = RequestMethod.GET)
     @ResponseBody
-    String verify(final HttpServletRequest request)
+    String verify(
+        @RequestParam(name = "hub.mode") final String hubMode,
+        @RequestParam(name = "hub.challenge") final String hubChallenge,
+        @RequestParam(name = "hub.verify_token") final String hubToken)
     {
-        try
-        {
-            LOGGER.info(request.toString());
-
-            final Map<String, String[]> paramMap = request.getParameterMap();
-
-            for (final Map.Entry<String, String[]> set : paramMap.entrySet())
-            {
-                LOGGER.info(String.valueOf(set));
-            }
-        }
-        catch (final Exception ex)
-        {
-            LOGGER.error(ex.toString());
-        }
-        return "failed";
+        return hubChallenge;
     }
 }
