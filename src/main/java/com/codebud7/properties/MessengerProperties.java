@@ -5,7 +5,7 @@ import org.aeonbits.owner.Config;
 /**
  * Created by s.puskeiler on 07.05.16.
  */
-@Config.Sources("messenger.properties")
+@Config.Sources("classpath:messenger.properties")
 public interface MessengerProperties extends Config
 {
     @Key("verify.token")
