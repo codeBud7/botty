@@ -39,21 +39,21 @@ public class MessengerBot
     public String toString()
     {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getObject());
+        stringBuilder.append("object:" + getObject());
         for (final MessengerBotEntry messengerBotEntry : getEntry())
         {
-            stringBuilder.append(messengerBotEntry.getId());
-            stringBuilder.append(messengerBotEntry.getTime());
+            stringBuilder.append("id:" + messengerBotEntry.getId());
+            stringBuilder.append("time:" + messengerBotEntry.getTime());
             for (final MessengerBotEntryMessaging messengerBotEntryMessaging : messengerBotEntry.getMessaging())
             {
-                stringBuilder.append(messengerBotEntryMessaging.getRecipient());
-                stringBuilder.append(messengerBotEntryMessaging.getSender());
-                stringBuilder.append(messengerBotEntryMessaging.getTimestamp());
+                stringBuilder.append("recipient:" + messengerBotEntryMessaging.getRecipient());
+                stringBuilder.append("sender:" + messengerBotEntryMessaging.getSender());
+                stringBuilder.append("timestamp:" + messengerBotEntryMessaging.getTimestamp());
 
                 final MessengerBotEntryMessagingMessage messengerBotEntryMessagingMessage = messengerBotEntryMessaging.getMessage();
-                stringBuilder.append(messengerBotEntryMessagingMessage.getMid());
-                stringBuilder.append(messengerBotEntryMessagingMessage.getSeq());
-                stringBuilder.append(messengerBotEntryMessagingMessage.getText());
+                stringBuilder.append("mid:" + messengerBotEntryMessagingMessage.getMid());
+                stringBuilder.append("seq:" + messengerBotEntryMessagingMessage.getSeq());
+                stringBuilder.append("text:" + messengerBotEntryMessagingMessage.getText());
             }
         }
 

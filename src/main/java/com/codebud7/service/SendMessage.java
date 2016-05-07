@@ -18,7 +18,7 @@ public class SendMessage
 {
     private static Logger LOGGER = LoggerFactory.getLogger(SendMessage.class);
 
-    private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class);
+    private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class, System.getenv());
 
 
     public void execute(final MessengerBotRecipient messengerBotRecipient) throws UnirestException

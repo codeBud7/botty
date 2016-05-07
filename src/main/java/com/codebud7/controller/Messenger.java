@@ -1,8 +1,12 @@
 package com.codebud7.controller;
 
 import com.codebud7.model.request.MessengerBot;
+import com.codebud7.model.response.MessengerBotRecipient;
 import com.codebud7.properties.MessengerProperties;
 import com.codebud7.service.SendMessage;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.HashMap;
+import java.util.Map;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,20 +69,20 @@ public class Messenger
     {
         LOGGER.info(messengerBot.toString());
 
-        //        final Map<String, String> messageData = new HashMap<>();
-        //        messageData.put("text", "Yo!");
-        //
-        //        final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
-        //        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getRecipient());
-        //        messengerBotRecipient.setMessage(messageData);
-        //
-        //        try
-        //        {
-        //            this.sendMessage.execute(messengerBotRecipient);
-        //        }
-        //        catch (final UnirestException e)
-        //        {
-        //            LOGGER.error(e.toString());
-        //        }
+        final Map<String, String> messageData = new HashMap<>();
+        messageData.put("text", "Yo!");
+
+        final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
+        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getRecipient());
+        messengerBotRecipient.setMessage(messageData);
+
+        try
+        {
+            this.sendMessage.execute(messengerBotRecipient);
+        }
+        catch (final UnirestException e)
+        {
+            LOGGER.error(e.toString());
+        }
     }
 }

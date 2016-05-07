@@ -12,7 +12,7 @@ public interface MessengerProperties extends Config
     @DefaultValue("foo")
     String getVerifyToken();
 
-    @Key("page.access.token")
+    @Key("PAGE_ACCESS_TOKEN")
     String getPageAccessToken();
 
     @Key("api.endpoint")
