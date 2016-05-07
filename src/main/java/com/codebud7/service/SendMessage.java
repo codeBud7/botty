@@ -5,7 +5,6 @@ import com.codebud7.properties.MessengerProperties;
 import com.mashape.unirest.http.Headers;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.InputStream;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,15 +29,8 @@ public class SendMessage
         LOGGER.debug(this.messengerProperties.getPageAccessToken());
         LOGGER.info(messengerBotRecipient.toJson());
 
-        final InputStream rawBody = Unirest.post(this.messengerProperties.getApiEndpoint())
-            .queryString(ACCESS_TOKEN, this.messengerProperties.getPageAccessToken())
-            .body(messengerBotRecipient.toJson())
-            .asJson()
-            .getRawBody();
-
-        LOGGER.info(rawBody.toString());
-
         final Headers headers = Unirest.post(this.messengerProperties.getApiEndpoint())
+            .header("Content-Type", "application/json")
             .queryString(ACCESS_TOKEN, this.messengerProperties.getPageAccessToken())
             .body(messengerBotRecipient.toJson())
             .asJson()
