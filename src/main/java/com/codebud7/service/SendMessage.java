@@ -2,8 +2,10 @@ package com.codebud7.service;
 
 import com.codebud7.model.response.MessengerBotRecipient;
 import com.codebud7.properties.MessengerProperties;
+import com.mashape.unirest.http.Headers;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.io.InputStream;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +30,20 @@ public class SendMessage
         LOGGER.debug(this.messengerProperties.getPageAccessToken());
         LOGGER.info(messengerBotRecipient.toJson());
 
-        final String statusText = Unirest.post(this.messengerProperties.getApiEndpoint())
+        final InputStream rawBody = Unirest.post(this.messengerProperties.getApiEndpoint())
             .queryString(ACCESS_TOKEN, this.messengerProperties.getPageAccessToken())
             .body(messengerBotRecipient.toJson())
             .asJson()
-            .getStatusText();
+            .getRawBody();
 
-        LOGGER.info(statusText);
+        LOGGER.info(rawBody.toString());
+
+        final Headers headers = Unirest.post(this.messengerProperties.getApiEndpoint())
+            .queryString(ACCESS_TOKEN, this.messengerProperties.getPageAccessToken())
+            .body(messengerBotRecipient.toJson())
+            .asJson()
+            .getHeaders();
+
+        LOGGER.info(headers.toString());
     }
 }
