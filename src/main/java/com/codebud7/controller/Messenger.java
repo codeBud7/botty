@@ -1,5 +1,6 @@
 package com.codebud7.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,8 @@ public class Messenger
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Messenger.class);
 
-    private static final String FBMESSENGERBOT_VERIFY_TOKEN = "foo";
+    private static final String VERIFY_TOKEN = "foo";
+    private static final String NOT_AUTHORIZED = "NOT AUTHORIZED";
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -30,13 +32,31 @@ public class Messenger
     }
 
 
-    @RequestMapping(value = "/verify", method = RequestMethod.GET)
+    @RequestMapping(value = "/webhook", method = RequestMethod.GET)
     @ResponseBody
     String verify(
         @RequestParam(name = "hub.mode") final String hubMode,
         @RequestParam(name = "hub.challenge") final String hubChallenge,
         @RequestParam(name = "hub.verify_token") final String hubToken)
     {
-        return hubChallenge;
+        if (hubToken.equals(VERIFY_TOKEN))
+        {
+            LOGGER.info("verify for mode {}", hubMode);
+            return hubChallenge;
+        }
+        else
+        {
+            LOGGER.info("access denied for {}, {}, {}", hubMode, hubChallenge, hubToken);
+            return NOT_AUTHORIZED;
+        }
+    }
+
+
+    @RequestMapping(value = "/webhook", method = RequestMethod.POST)
+    @ResponseBody
+    String answer(final HttpServletRequest request)
+    {
+        LOGGER.info(request.toString());
+        return "yo";
     }
 }
