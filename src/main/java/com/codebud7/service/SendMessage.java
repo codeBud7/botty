@@ -25,10 +25,15 @@ public class SendMessage
         LOGGER.debug(this.messengerProperties.getApiEndpoint());
         LOGGER.debug(this.messengerProperties.getPageAccessToken());
 
-        Unirest.post(this.messengerProperties.getApiEndpoint())
+        final int status = Unirest.post(this.messengerProperties.getApiEndpoint())
             .queryString("access_token", this.messengerProperties.getPageAccessToken())
             .field("recipient", messengerBotRecipient.getRecipient())
             .field("message", messengerBotRecipient.getMessage())
-            .asJson();
+            .asJson()
+            .getStatus();
+
+        LOGGER.info(String.valueOf(status));
+
+        LOGGER.info("Successfully sent message to {}", messengerBotRecipient.getRecipient());
     }
 }
