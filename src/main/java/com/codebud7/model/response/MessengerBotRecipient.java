@@ -39,8 +39,8 @@ public class MessengerBotRecipient
     public String toString()
     {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("recipient:" + getRecipient());
-        stringBuilder.append("message:" + getMessage());
+        stringBuilder.append("recipient:{" + getRecipient() + "}");
+        stringBuilder.append("message:{" + getMessage() + "}");
 
         return stringBuilder.toString();
     }
