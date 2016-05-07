@@ -11,9 +11,9 @@ public class MessengerBotRecipient
     private Map<String, String> message;
 
 
-    public Map<String, Long> getRecipient()
+    public String getRecipient()
     {
-        return this.recipient;
+        return "id:" + this.recipient.get("id");
     }
 
 
@@ -23,9 +23,9 @@ public class MessengerBotRecipient
     }
 
 
-    public Map<String, String> getMessage()
+    public String getMessage()
     {
-        return this.message;
+        return "text:" + this.message.get("text");
     }
 
 
@@ -39,8 +39,8 @@ public class MessengerBotRecipient
     public String toString()
     {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("recipient:" + getRecipient().toString());
-        stringBuilder.append("message:" + getMessage().toString());
+        stringBuilder.append("recipient:" + getRecipient());
+        stringBuilder.append("message:" + getMessage());
 
         return stringBuilder.toString();
     }
