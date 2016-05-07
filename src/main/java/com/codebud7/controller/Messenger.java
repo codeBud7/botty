@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,9 +55,12 @@ public class Messenger
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
     @ResponseBody
-    String answer(final HttpServletRequest request)
+    String answer(
+        final HttpServletRequest request,
+        @RequestBody final Object body)
     {
         LOGGER.info(request.toString());
+        LOGGER.info(body.toString());
         return "yo";
     }
 }
