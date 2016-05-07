@@ -13,7 +13,7 @@ public class MessengerBotRecipient
 
     public String getRecipient()
     {
-        return "'id':" + this.recipient.get("id");
+        return "'id':'" + this.recipient.get("id") + "'";
     }
 
 
