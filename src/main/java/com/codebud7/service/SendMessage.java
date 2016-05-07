@@ -23,6 +23,10 @@ public class SendMessage
 
     public void execute(final MessengerBotRecipient messengerBotRecipient) throws UnirestException
     {
+        LOGGER.info(this.messengerProperties.getApiEndpoint());
+        LOGGER.info(this.messengerProperties.getPageAccessToken());
+        LOGGER.info(messengerBotRecipient.toString());
+
         Unirest.post(this.messengerProperties.getApiEndpoint())
             .queryString("access_token", this.messengerProperties.getPageAccessToken())
             .field("recipient", messengerBotRecipient.getRecipient())
