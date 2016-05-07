@@ -17,6 +17,8 @@ public class SendMessage
 {
     private static Logger LOGGER = LoggerFactory.getLogger(SendMessage.class);
 
+    private final static String ACCESS_TOKEN = "ACCESS_TOKEN";
+
     private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class, System.getenv());
 
 
@@ -24,14 +26,11 @@ public class SendMessage
     {
         LOGGER.debug(this.messengerProperties.getApiEndpoint());
         LOGGER.debug(this.messengerProperties.getPageAccessToken());
-        LOGGER.info(messengerBotRecipient.getRecipient());
-        LOGGER.info(messengerBotRecipient.getMessage());
-        LOGGER.info(messengerBotRecipient.toString());
+        LOGGER.info(messengerBotRecipient.toJson());
 
         final String statusText = Unirest.post(this.messengerProperties.getApiEndpoint())
-            .queryString("access_token", this.messengerProperties.getPageAccessToken())
-            .field("recipient", messengerBotRecipient.getRecipient())
-            .field("message", messengerBotRecipient.getMessage())
+            .queryString(ACCESS_TOKEN, this.messengerProperties.getPageAccessToken())
+            .body(messengerBotRecipient.toJson())
             .asJson()
             .getStatusText();
 

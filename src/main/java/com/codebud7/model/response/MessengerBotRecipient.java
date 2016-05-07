@@ -13,7 +13,7 @@ public class MessengerBotRecipient
 
     public String getRecipient()
     {
-        return "id:" + this.recipient.get("id");
+        return "'id':" + this.recipient.get("id");
     }
 
 
@@ -25,7 +25,7 @@ public class MessengerBotRecipient
 
     public String getMessage()
     {
-        return "text:" + this.message.get("text");
+        return "'text':‘" + this.message.get("text") + "'";
     }
 
 
@@ -35,12 +35,13 @@ public class MessengerBotRecipient
     }
 
 
-    @Override
-    public String toString()
+    public String toJson()
     {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("recipient:{" + getRecipient() + "}");
-        stringBuilder.append("message:{" + getMessage() + "}");
+        stringBuilder.append("{");
+        stringBuilder.append("'recipient':{" + getRecipient() + "},");
+        stringBuilder.append("'message':{" + getMessage() + "}");
+        stringBuilder.append("}");
 
         return stringBuilder.toString();
     }
