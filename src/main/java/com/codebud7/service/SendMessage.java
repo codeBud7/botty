@@ -24,9 +24,9 @@ public class SendMessage
     {
         LOGGER.debug(this.messengerProperties.getApiEndpoint());
         LOGGER.debug(this.messengerProperties.getPageAccessToken());
-        LOGGER.debug(messengerBotRecipient.getRecipient());
-        LOGGER.debug(messengerBotRecipient.getMessage());
-        LOGGER.debug(messengerBotRecipient.toString());
+        LOGGER.info(messengerBotRecipient.getRecipient());
+        LOGGER.info(messengerBotRecipient.getMessage());
+        LOGGER.info(messengerBotRecipient.toString());
 
         final String statusText = Unirest.post(this.messengerProperties.getApiEndpoint())
             .queryString("access_token", this.messengerProperties.getPageAccessToken())
@@ -36,7 +36,5 @@ public class SendMessage
             .getStatusText();
 
         LOGGER.info(statusText);
-
-        LOGGER.info("Successfully sent message to {}", messengerBotRecipient.getRecipient());
     }
 }
