@@ -4,6 +4,7 @@ import com.codebud7.model.request.MessengerBot;
 import com.codebud7.model.response.MessengerBotRecipient;
 import com.codebud7.properties.MessengerProperties;
 import com.codebud7.service.SendMessage;
+import com.google.common.base.Preconditions;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +68,8 @@ public class Messenger
     @ResponseStatus(HttpStatus.OK)
     private void answer(@RequestBody final MessengerBot messengerBot)
     {
+        Preconditions.checkNotNull(messengerBot);
+
         LOGGER.info(messengerBot.toString());
 
         final Map<String, String> messageData = new HashMap<>();
