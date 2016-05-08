@@ -2,7 +2,7 @@ package com.codebud7.controller;
 
 import com.codebud7.model.FacebookMessengerCallback;
 import com.codebud7.properties.MessengerProperties;
-import com.codebud7.service.FacebookMessengerHandler;
+import com.codebud7.service.ConversationService;
 import com.google.common.base.Preconditions;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class Messenger
     private final MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class);
 
     @Autowired
-    private FacebookMessengerHandler facebookMessengerHandler;
+    private ConversationService conversationService;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -67,9 +67,12 @@ public class Messenger
     {
         Preconditions.checkNotNull(facebookMessengerCallback);
 
-        if (FacebookMessengerCallback.FacebookMessengerCallbackType.RECEIVED.equals(facebookMessengerCallback.getType()))
+        final FacebookMessengerCallback.FacebookMessengerCallbackType facebookMessengerCallbackType = facebookMessengerCallback.getType();
+        if (FacebookMessengerCallback.FacebookMessengerCallbackType.RECEIVED.equals(facebookMessengerCallbackType))
         {
-            this.facebookMessengerHandler.sendMessage("Hundi", facebookMessengerCallback.getSender());
+            this.conversationService.communicateWithRecipient(facebookMessengerCallback.getMessageText(), facebookMessengerCallback.getSender());
         }
+
+        LOGGER.info("Resolved message with callback type {}", facebookMessengerCallbackType);
     }
 }

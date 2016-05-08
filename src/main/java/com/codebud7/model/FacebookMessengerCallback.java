@@ -155,6 +155,32 @@ public class FacebookMessengerCallback
     }
 
 
+    public String getMessageText()
+    {
+        final List<Entry> entryList = this.getEntry();
+        if (!entryList.isEmpty())
+        {
+            final Entry entry = entryList.get(0);
+            if (entry != null && entry.getMessaging() != null)
+            {
+                final List<Entry.Messaging> messagingList = entry.getMessaging();
+                if (!messagingList.isEmpty())
+                {
+                    final Entry.Messaging messaging = messagingList.get(0);
+                    if (messaging != null)
+                    {
+                        if (messaging.getMessage() != null)
+                        {
+                            return messaging.getMessage().getText();
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     public static class Entry
     {
         private Long id;
