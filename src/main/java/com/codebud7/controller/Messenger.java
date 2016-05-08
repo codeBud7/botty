@@ -66,7 +66,6 @@ public class Messenger
     private void receive(@RequestBody final FacebookMessengerCallback facebookMessengerCallback)
     {
         Preconditions.checkNotNull(facebookMessengerCallback);
-        Preconditions.checkNotNull(facebookMessengerCallback.getSender());
 
         if (FacebookMessengerCallback.FacebookMessengerCallbackType.RECEIVED.equals(facebookMessengerCallback.getType()))
         {
