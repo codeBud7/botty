@@ -155,7 +155,7 @@ public class FacebookMessengerCallback
     }
 
 
-    public class Entry
+    public static class Entry
     {
         private Long id;
         private Long time;
@@ -206,7 +206,7 @@ public class FacebookMessengerCallback
         }
 
 
-        public class Messaging
+        public static class Messaging
         {
             private Map<String, Long> sender;
             private Map<String, Long> recipient;
@@ -285,7 +285,7 @@ public class FacebookMessengerCallback
             }
 
 
-            private class Delivery
+            private static class Delivery
             {
                 private List<String> mids;
                 private Long watermark;
@@ -336,7 +336,7 @@ public class FacebookMessengerCallback
                 }
             }
 
-            private class Message
+            private static class Message
             {
                 private String mid;
                 private Long seq;
