@@ -1,6 +1,8 @@
 package com.codebud7.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +30,28 @@ public class ConversationService
 
     private String createAnswer(final String message)
     {
-        switch (message)
+        switch (message.toLowerCase())
         {
-            case "What is love?":
-                return "Baby don't hurt me.";
+            case "what is love":
+                return "Baby dont hurt me.";
 
-            case "Hundi":
+            case "danke":
+                return ":-)";
+
+            case "hundi":
                 return "Wau Wau";
+
+            case "uhrzeit":
+                return "Es ist " + getCurrentTime();
 
             default:
                 return "Ich bin leider nicht sicher, was du meinst...";
         }
+    }
+
+
+    public String getCurrentTime()
+    {
+        return new SimpleDateFormat("HH:mm:ss.SSS").format(DateTime.now().toDate());
     }
 }
