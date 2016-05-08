@@ -1,12 +1,9 @@
 package com.codebud7.controller;
 
-import com.codebud7.model.request.MessengerBot;
-import com.codebud7.model.response.MessengerBotRecipient;
+import com.codebud7.model.FacebookMessengerCallback;
 import com.codebud7.properties.MessengerProperties;
-import com.codebud7.service.SendMessage;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.util.HashMap;
-import java.util.Map;
+import com.codebud7.service.FacebookMessengerHandler;
+import com.google.common.base.Preconditions;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +26,11 @@ public class Messenger
     private static final String NOT_AUTHORIZED = "NOT AUTHORIZED";
     private static final Logger LOGGER = LoggerFactory.getLogger(Messenger.class);
 
-    private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class);
+    private final MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class);
 
     @Autowired
-    private SendMessage sendMessage;
+    private FacebookMessengerHandler facebookMessengerHandler;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
@@ -65,30 +63,14 @@ public class Messenger
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    private void answer(@RequestBody final MessengerBot messengerBot)
+    private void receive(@RequestBody final FacebookMessengerCallback facebookMessengerCallback)
     {
-        if (messengerBot != null)
+        Preconditions.checkNotNull(facebookMessengerCallback);
+        Preconditions.checkNotNull(facebookMessengerCallback.getSender());
+
+        if (FacebookMessengerCallback.FacebookMessengerCallbackType.RECEIVED.equals(facebookMessengerCallback.getType()))
         {
-            LOGGER.info(messengerBot.toString());
-
-            final Map<String, String> messageData = new HashMap<>();
-            messageData.put("text", "Yo!");
-
-            final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
-            messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getSender());
-            messengerBotRecipient.setMessage(messageData);
-
-            try
-            {
-                if (messengerBot.getEntry().get(0).getMessaging().get(0).getMessage() != null)
-                {
-                    this.sendMessage.execute(messengerBotRecipient);
-                }
-            }
-            catch (final UnirestException e)
-            {
-                LOGGER.error(e.toString());
-            }
+            this.facebookMessengerHandler.sendMessage("Hundi", facebookMessengerCallback.getSender());
         }
     }
 }
