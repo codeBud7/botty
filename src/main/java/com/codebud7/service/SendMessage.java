@@ -18,7 +18,7 @@ public class SendMessage
 {
     private static Logger LOGGER = LoggerFactory.getLogger(SendMessage.class);
 
-    private final static String ACCESS_TOKEN = "ACCESS_TOKEN";
+    private final static String ACCESS_TOKEN = "access_token";
 
     private MessengerProperties messengerProperties = ConfigFactory.create(MessengerProperties.class, System.getenv());
 
