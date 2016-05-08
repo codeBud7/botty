@@ -2,7 +2,9 @@ package com.codebud7.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.TimeZone;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,6 @@ public class ConversationService
 
     public String getCurrentTime()
     {
-        return new SimpleDateFormat("HH:mm:ss.SSS").format(DateTime.now().toDate());
+        return new SimpleDateFormat("HH:mm:ss.SSS").format(DateTime.now(DateTimeZone.forTimeZone(TimeZone.getTimeZone("EUROPE/BERLIN"))).toDate());
     }
 }
