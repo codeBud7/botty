@@ -4,7 +4,6 @@ import com.codebud7.model.request.MessengerBot;
 import com.codebud7.model.response.MessengerBotRecipient;
 import com.codebud7.properties.MessengerProperties;
 import com.codebud7.service.SendMessage;
-import com.google.common.base.Preconditions;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,24 +67,25 @@ public class Messenger
     @ResponseStatus(HttpStatus.OK)
     private void answer(@RequestBody final MessengerBot messengerBot)
     {
-        Preconditions.checkNotNull(messengerBot);
-
-        LOGGER.info(messengerBot.toString());
-
-        final Map<String, String> messageData = new HashMap<>();
-        messageData.put("text", "Yo!");
-
-        final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
-        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getSender());
-        messengerBotRecipient.setMessage(messageData);
-
-        try
+        if (messengerBot != null)
         {
-            this.sendMessage.execute(messengerBotRecipient);
-        }
-        catch (final UnirestException e)
-        {
-            LOGGER.error(e.toString());
+            LOGGER.info(messengerBot.toString());
+
+            final Map<String, String> messageData = new HashMap<>();
+            messageData.put("text", "Yo!");
+
+            final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
+            messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getSender());
+            messengerBotRecipient.setMessage(messageData);
+
+            try
+            {
+                this.sendMessage.execute(messengerBotRecipient);
+            }
+            catch (final UnirestException e)
+            {
+                LOGGER.error(e.toString());
+            }
         }
     }
 }
