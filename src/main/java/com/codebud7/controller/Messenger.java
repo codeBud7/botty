@@ -73,7 +73,7 @@ public class Messenger
         messageData.put("text", "Yo!");
 
         final MessengerBotRecipient messengerBotRecipient = new MessengerBotRecipient();
-        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getRecipient());
+        messengerBotRecipient.setRecipient(messengerBot.getEntry().get(0).getMessaging().get(0).getSender());
         messengerBotRecipient.setMessage(messageData);
 
         try
