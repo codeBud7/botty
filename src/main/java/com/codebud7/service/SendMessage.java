@@ -5,7 +5,6 @@ import com.codebud7.properties.MessengerProperties;
 import com.mashape.unirest.http.Headers;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.IOException;
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,14 +37,5 @@ public class SendMessage
             .getHeaders();
 
         LOGGER.info(headers.toString());
-
-        try
-        {
-            Unirest.shutdown();
-        }
-        catch (final IOException e)
-        {
-            LOGGER.error(e.toString());
-        }
     }
 }

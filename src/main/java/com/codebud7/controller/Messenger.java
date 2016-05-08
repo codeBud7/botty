@@ -80,7 +80,10 @@ public class Messenger
 
             try
             {
-                this.sendMessage.execute(messengerBotRecipient);
+                if (messengerBot.getEntry().get(0).getMessaging().get(0).getMessage() != null)
+                {
+                    this.sendMessage.execute(messengerBotRecipient);
+                }
             }
             catch (final UnirestException e)
             {
