@@ -12,6 +12,11 @@ public class FacebookMessengerCallback
     private List<Entry> entry;
 
 
+    public FacebookMessengerCallback()
+    {
+    }
+
+
     public String getObject()
     {
         return this.object;
@@ -157,6 +162,11 @@ public class FacebookMessengerCallback
         private List<Messaging> messaging;
 
 
+        public Entry()
+        {
+        }
+
+
         Long getId()
         {
             return this.id;
@@ -203,6 +213,11 @@ public class FacebookMessengerCallback
             private Long timestamp;
             private Message message;
             private Delivery delivery;
+
+
+            public Messaging()
+            {
+            }
 
 
             public Map<String, Long> getSender()
@@ -277,6 +292,11 @@ public class FacebookMessengerCallback
                 private Long seq;
 
 
+                public Delivery()
+                {
+                }
+
+
                 public List<String> getMids()
                 {
                     return this.mids;
@@ -321,6 +341,11 @@ public class FacebookMessengerCallback
                 private String mid;
                 private Long seq;
                 private String text;
+
+
+                public Message()
+                {
+                }
 
 
                 public String getMid()
