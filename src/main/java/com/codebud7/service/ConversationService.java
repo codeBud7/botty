@@ -20,6 +20,8 @@ public class ConversationService
 
     public void communicateWithRecipient(final String message, final Map<String, Long> recipient)
     {
+        LOGGER.info("Recipient {} says {}", recipient, message);
+
         this.facebookMessengerHandler.sendMessage(createAnswer(message), recipient);
     }
 
