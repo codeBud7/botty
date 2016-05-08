@@ -51,18 +51,20 @@ public class MessengerBot
                 stringBuilder.append("timestamp:" + messengerBotEntryMessaging.getTimestamp());
 
                 final MessengerBotEntryMessagingMessage messengerBotEntryMessagingMessage = messengerBotEntryMessaging.getMessage();
-
-                if (messengerBotEntryMessagingMessage.getMid() != null)
+                if (messengerBotEntryMessagingMessage != null)
                 {
-                    stringBuilder.append("mid:" + messengerBotEntryMessagingMessage.getMid());
-                }
-                if (messengerBotEntryMessagingMessage.getSeq() != null)
-                {
-                    stringBuilder.append("seq:" + messengerBotEntryMessagingMessage.getSeq());
-                }
-                if (messengerBotEntryMessagingMessage.getText() != null)
-                {
-                    stringBuilder.append("text:" + messengerBotEntryMessagingMessage.getText());
+                    if (messengerBotEntryMessagingMessage.getMid() != null)
+                    {
+                        stringBuilder.append("mid:" + messengerBotEntryMessagingMessage.getMid());
+                    }
+                    if (messengerBotEntryMessagingMessage.getSeq() != null)
+                    {
+                        stringBuilder.append("seq:" + messengerBotEntryMessagingMessage.getSeq());
+                    }
+                    if (messengerBotEntryMessagingMessage.getText() != null)
+                    {
+                        stringBuilder.append("text:" + messengerBotEntryMessagingMessage.getText());
+                    }
                 }
             }
         }
